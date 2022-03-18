@@ -31,18 +31,5 @@ public class UserRest {
 	public Iterable<User> findAll() {
 		return userService.findAll();
 	}
-	
-//	@GetMapping("/home")
-//	public ModelAndView login() {
-//		ModelAndView model = new ModelAndView();
-//		model.setViewName("index");
-//		return model;
-//	}
-//
-//	@GetMapping("/login")
-//	public void recoger(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
-//		System.out.println("DEBUG"+username+password);
-//	}
-	
 
 }

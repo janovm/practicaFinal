@@ -28,12 +28,26 @@ public class controller {
 	@PostMapping("/login")
 	public ModelAndView recoger(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
 		Iterable<User> usuarios = userService.findAll();
+		System.out.println("USUARIO: "+ username+"      PASS: "+password);
 		for (Iterator iterator = usuarios.iterator(); iterator.hasNext();) {
 			User usuario = (User) iterator.next();
 			if (usuario.getUser().equalsIgnoreCase(username) && usuario.getPassword().equalsIgnoreCase(password)) {
-				ModelAndView model = new ModelAndView();
-				model.setViewName("usuario");
-				return model;
+				if (usuario.getRole().getId()==1) {
+					ModelAndView model = new ModelAndView();
+					model.setViewName("admin");
+					System.out.println("admin");
+					return model;
+				}else if (usuario.getRole().getId()==2) {
+					ModelAndView model = new ModelAndView();
+					model.setViewName("advance");
+					System.out.println("advance");
+					return model;
+				}else if (usuario.getRole().getId()==3) {
+					ModelAndView model = new ModelAndView();
+					System.out.println("normal");
+					model.setViewName("normal");
+					return model;
+				}
 			}
 		}
 		ModelAndView model = new ModelAndView();
