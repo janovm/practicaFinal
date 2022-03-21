@@ -39,7 +39,6 @@ public class UserRest {
 		return userService.save(usuario);
 	}
 	
-
 	@DeleteMapping("/deleteUser")
 	public void deleteUser(@RequestBody User usuario) {
 		userService.delete(usuario);

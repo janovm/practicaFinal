@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,12 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alejandro.app.entity.Role;
 import com.alejandro.app.entity.User;
 import com.alejandro.app.repository.UsersStatesCrudRepository;
+import com.alejandro.app.services.Encript;
 
 @Controller
 public class controller {
 	
 	@Autowired
 	private UsersStatesCrudRepository userService;
+	
+	private Encript encriptador;
 	
 	@GetMapping("/home")
 	public ModelAndView login() {
@@ -29,9 +33,10 @@ public class controller {
 	@PostMapping("/login")
 	public ModelAndView recoger(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
 		Iterable<User> usuarios = userService.findAll();
+		encriptador = new Encript();
 		for (Iterator iterator = usuarios.iterator(); iterator.hasNext();) {
 			User usuario = (User) iterator.next();
-			if (usuario.getUser().equalsIgnoreCase(username) && usuario.getPassword().equalsIgnoreCase(password)) {
+			if (usuario.getUser().equalsIgnoreCase(username) && usuario.getPassword().equalsIgnoreCase(encriptador.getAES(password))) {
 				if (usuario.getRole().getId()==1) {
 					ModelAndView model = new ModelAndView();
 					model.setViewName("admin");
@@ -59,7 +64,8 @@ public class controller {
 	public ModelAndView addUser(@RequestParam(value="username") String username, @RequestParam(value="password") String password, @RequestParam(value="rol") String rol) {
 		User usuario = new User();
 		usuario.setUser(username);
-		usuario.setPassword(password);
+		encriptador = new Encript();
+		usuario.setPassword(encriptador.getAES(password));
 		Role rolUser = new Role();
 		rolUser.setId(Integer.parseInt(rol));
 		usuario.setRole(rolUser);
@@ -68,4 +74,15 @@ public class controller {
 		model.setViewName("admin");
 		return model;
 	}
+	
+	@DeleteMapping("/deleteUser")
+	public ModelAndView deleteUser(@RequestParam(value="id") String id) {
+		User usuario = new User();
+		usuario.setId(Integer.parseInt(id));
+		userService.save(usuario);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("admin");
+		return model;
+	}
+	
 }
