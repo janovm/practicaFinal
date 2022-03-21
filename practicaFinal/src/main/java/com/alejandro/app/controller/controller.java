@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,16 +41,19 @@ public class controller {
 				if (usuario.getRole().getId()==1) {
 					ModelAndView model = new ModelAndView();
 					model.setViewName("admin");
+					model.addObject("listaUsers",userService.findAll());
 					System.out.println("admin");
 					return model;
 				}else if (usuario.getRole().getId()==2) {
 					ModelAndView model = new ModelAndView();
 					model.setViewName("advance");
+					model.addObject("listaUsers",userService.findAll());
 					System.out.println("advance");
 					return model;
 				}else if (usuario.getRole().getId()==3) {
 					ModelAndView model = new ModelAndView();
 					System.out.println("normal");
+					model.addObject("listaUsers",userService.findAll());
 					model.setViewName("normal");
 					return model;
 				}
@@ -72,16 +76,18 @@ public class controller {
 		userService.save(usuario);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("admin");
+		model.addObject("listaUsers",userService.findAll());
 		return model;
 	}
 	
-	@DeleteMapping("/deleteUser")
-	public ModelAndView deleteUser(@RequestParam(value="id") String id) {
+	@RequestMapping("/deleteUser")
+	public ModelAndView deleteUser(@RequestParam(value="userId") Integer id) {
 		User usuario = new User();
-		usuario.setId(Integer.parseInt(id));
-		userService.save(usuario);
+		usuario.setId(id);
+		userService.delete(usuario);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("admin");
+		model.addObject("listaUsers",userService.findAll());
 		return model;
 	}
 	
