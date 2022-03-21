@@ -161,16 +161,18 @@
 </head>
 
 <body>
-	<form th:action="@{/addUser}" id="loginform" method="POST">
-		<input type=" text" name="username" placeholder="usuario" required>
-		<input type="password" placeholder="Contraseña" name="password" required>
-		<select name="rol" required>
-			<option value="1">admin</option>
-			<option value="2" selected>advanced</option>
-			<option value="3">basic</option>
-		</select>
-		<button type="submit" title="Crear" name="Crear">Create user</button>
-	</form>
+	<div>
+		<form th:action="@{/addUser}" id="loginform" method="POST">
+			<input type=" text" name="username" placeholder="usuario" required>
+			<input type="password" placeholder="Contraseña" name="password" required>
+			<select name="rol" required>
+				<option value="1">admin</option>
+				<option value="2" selected>advanced</option>
+				<option value="3">basic</option>
+			</select>
+			<button type="submit" title="Crear" name="Crear">Create user</button>
+		</form>
+	</div>
 </body>
 
 </html>
