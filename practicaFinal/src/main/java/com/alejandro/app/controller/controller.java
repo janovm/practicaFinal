@@ -91,4 +91,19 @@ public class controller {
 		return model;
 	}
 	
+	@RequestMapping("/modifyUser")
+	public ModelAndView deleteUser(@RequestParam(value="userId") String id, @RequestParam(value="user") String username, @RequestParam(value="passw") String password, @RequestParam(value="enabled") String enabled) {
+		User usuario = new User();
+		usuario.setId(Integer.parseInt(id));
+		userService.delete(usuario);
+		usuario.setUser(username);
+		usuario.setPassword(password);
+		usuario.setEnabled(Integer.parseInt(enabled));
+		userService.save(usuario);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("admin");
+		model.addObject("listaUsers",userService.findAll());
+		return model;
+	}
+	
 }

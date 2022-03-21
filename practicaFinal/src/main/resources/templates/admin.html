@@ -12,29 +12,6 @@
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-	<meta content="Videojuegos & Desarrollo" name="author">
-	<meta content="Muestra de un formulario de acceso en HTML y CSS" name="description">
-	<meta content="Formulario Acceso, Formulario de LogIn" name="keywords">
-
-	<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Overpass&display=swap" rel="stylesheet">
-	<link href="images/icons/favicon.ico" rel="icon" type="image/png" />
-	<!--===============================================================================================-->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<!--===============================================================================================-->
-	<link href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<!--===============================================================================================-->
-	<link href="vendor/animate/animate.css" rel="stylesheet" type="text/css">
-	<!--===============================================================================================-->
-	<link href="vendor/select2/select2.min.css" rel="stylesheet" type="text/css">
-	<!--===============================================================================================-->
-	<link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css">
-	<!--===============================================================================================-->
-	<link href="../css/util.css" rel="stylesheet" type="text/css">
-	<link href="../css/main.css" rel="stylesheet" type="text/css">
-	<!--===============================================================================================-->
-
-
 	<style type="text/css">
 		/*//////////////////////////////////////////////////////////////////
 		[ FONT ]*/
@@ -79,6 +56,23 @@
 			delUser.style.display = "block";
 		}
 
+		function dotest(element, event) {
+			const url="http://localhost:8081/modifyUser";
+			const data ={
+				id:element.getElementsByTagName("td")[0].textContent,
+				user: element.getElementsByTagName("td")[1].textContent,
+				rol: element.getElementsByTagName("td")[2].textContent,
+				estado: element.getElementsByTagName("td")[3].textContent
+			}
+			axios({
+				method:"post",
+				url: url,
+				data:{
+					data
+				}
+			}).then(data=>console.log(data)).catch(err=>console.log(err))
+		}
+
 	</script>
 </head>
 
@@ -101,30 +95,30 @@
 		</form>
 	</div>
 	<div id="showUsers">
-		 <div class="row align-items-start">
-        <div class="col">
-            <table class="table">
-                <br>
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Rol</th>
-                    <th>Estado</th>
+		<div class="row align-items-start">
+			<div class="col">
+				<table class="table">
+					<br>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Username</th>
+							<th>Rol</th>
+							<th>Estado</th>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="u: ${listaUsers}">
-                    <td th:text="${u.id}"></td>
-                    <td th:text="${u.user}"></td>
-                    <td th:text="${u.role.getRol()}"></td>
-                    <td th:text="${u.enabled == 1 } ? 'ACTIVO' : 'DESHABILITADO'"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="u: ${listaUsers}" onkeyup="javascript:dotest(this,event);">
+							<td th:text="${u.id}"></td>
+							<td th:text="${u.user}" contenteditable='true'></td>
+							<td th:text="${u.role.getRol()}" contenteditable='true'></td>
+							<td th:text="${u.enabled == 1 } ? 'ACTIVO' : 'DESHABILITADO'" contenteditable='true'></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 	<div id="delUser">
 		<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
