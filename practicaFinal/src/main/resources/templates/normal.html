@@ -56,7 +56,7 @@
 			margin-bottom: 20px;
 		}
 
-		#login {
+		#normal {
 			width: 100%;
 			padding: 50px 30px;
 			background-color: #3282b8;
@@ -72,7 +72,7 @@
 			box-sizing: border-box;
 		}
 
-		#login input {
+		#normal input {
 			font-family: 'Overpass', sans-serif;
 			font-size: 110%;
 			color: #1b262c;
@@ -92,12 +92,12 @@
 			-webkit-border-radius: 3px 3px 3px 3px;
 		}
 
-		#login input::placeholder {
+		#normal input::placeholder {
 			font-family: 'Overpass', sans-serif;
 			color: #E4E4E4;
 		}
 
-		#login button {
+		#normal button {
 			font-family: 'Overpass', sans-serif;
 			font-size: 110%;
 			color: #1b262c;
@@ -114,7 +114,7 @@
 			margin-top: 10px;
 		}
 
-		#login button:hover {
+		#normal button:hover {
 			background-color: #0f4c75;
 			color: #bbe1fa;
 		}
@@ -161,7 +161,21 @@
 </head>
 
 <body>
-	NORMAL
+<div id="contenedor">
+	<div id="central">
+		<div id="normal">
+			<div class="titulo">
+				Bienvenido
+			</div>
+			<div id="formButtons">
+				<button name="Mostrar" onclick="showUsersFunc()" title="Mostrar" type="submit">Mostrar usuarios</button>
+			</div>
+		</div>
+		<div class="inferior">
+			<a href="#">Volver</a>
+		</div>
+	</div>
+</div>
 </body>
 
 </html>

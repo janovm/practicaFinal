@@ -56,7 +56,7 @@
 			margin-bottom: 20px;
 		}
 
-		#login {
+		#advance {
 			width: 100%;
 			padding: 50px 30px;
 			background-color: #3282b8;
@@ -72,7 +72,7 @@
 			box-sizing: border-box;
 		}
 
-		#login input {
+		#advance input {
 			font-family: 'Overpass', sans-serif;
 			font-size: 110%;
 			color: #1b262c;
@@ -81,7 +81,7 @@
 			width: 100%;
 			height: 40px;
 
-			margin-bottom: 10px;
+			margin: 10px 0px 10px 0px;
 			padding: 5px 5px 5px 10px;
 
 			box-sizing: border-box;
@@ -92,12 +92,13 @@
 			-webkit-border-radius: 3px 3px 3px 3px;
 		}
 
-		#login input::placeholder {
+		#advance input::placeholder {
 			font-family: 'Overpass', sans-serif;
 			color: #E4E4E4;
+			margin-top:10px;
 		}
 
-		#login button {
+		#advance button {
 			font-family: 'Overpass', sans-serif;
 			font-size: 110%;
 			color: #1b262c;
@@ -114,7 +115,7 @@
 			margin-top: 10px;
 		}
 
-		#login button:hover {
+		#advance button:hover {
 			background-color: #0f4c75;
 			color: #bbe1fa;
 		}
@@ -152,16 +153,51 @@
 		.inferior a:hover {
 			color: #3282b8;
 		}
+
+		#addUsers{display:none;}
 	</style>
 
 	<script type="text/javascript">
-
+		function addUsersFunc() {
+			var addUsers1 = document.getElementById("addUsers");
+			var showUser = document.getElementById("showUser");
+			var delUser = document.getElementById("delUser");
+			addUsers1.style.display = "block";
+			showUser.style.display = "none";
+			delUser.style.display = "none";
+			}
 	</script>
 
 </head>
 
 <body>
-	ADVANCE
+<div id="contenedor">
+	<div id="central">
+		<div id="advance">
+			<div class="titulo">
+				Bienvenido
+			</div>
+			<div id="formButtons">
+				<button name="Crear" onclick="addUsersFunc()" title="Crear" type="submit">Crear usuario</button>
+				<button name="Mostrar" onclick="showUsersFunc()" title="Mostrar" type="submit">Mostrar usuarios</button>
+			</div>
+			<div id="addUsers">
+				<form id="loginformAdd" method="POST" th:action="@{/addUser}">
+					<input name="username" placeholder="usuario" required type="text">
+					<input name="password" placeholder="Contraseña" required type="password">
+					<select name="rol" required>
+						<option value="1">admin</option>
+						<option selected value="2">advanced</option>
+						<option value="3">basic</option>
+					</select>
+				</form>
+			</div>
+		</div>
+		<div class="inferior">
+			<a href="#">Volver</a>
+		</div>
+	</div>
+</div>
 </body>
 
 </html>
