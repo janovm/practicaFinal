@@ -2,7 +2,7 @@
 <!doctype html>
 
 <!-- Representa la raíz de un documento HTML o XHTML. Todos los demás elementos deben ser descendientes de este elemento. -->
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 
 <head>
 
@@ -18,7 +18,7 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Overpass&display=swap" rel="stylesheet">
-	<link href="images/icons/favicon.ico" rel="icon" type="image/png"/>
+	<link href="images/icons/favicon.ico" rel="icon" type="image/png" />
 	<!--===============================================================================================-->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<!--===============================================================================================-->
@@ -39,97 +39,99 @@
 		/*//////////////////////////////////////////////////////////////////
 		[ FONT ]*/
 
-		#addUsers{display:none;}
-		#editUser{display:none;}
-		#delUser{display:none;}
+		#addUsers {
+			display: none;
+		}
 
-    </style>
+		#showUsers {
+			display: none;
+		}
+
+		#delUser {
+			display: none;
+		}
+	</style>
 
 	<script type="text/javascript">
 		function addUsersFunc() {
 			var addUsers1 = document.getElementById("addUsers");
-			var showUser = document.getElementById("showUser");
+			var showUser = document.getElementById("showUsers");
 			var delUser = document.getElementById("delUser");
 			addUsers1.style.display = "block";
 			showUser.style.display = "none";
 			delUser.style.display = "none";
-			}
+		}
 		function showUsersFunc() {
 			var addUsers1 = document.getElementById("addUsers");
-			var showUser = document.getElementById("showUser");
+			var showUsers = document.getElementById("showUsers");
 			var delUser = document.getElementById("delUser");
 			addUsers1.style.display = "none";
-			showUser.style.display = "block";
+			showUsers.style.display = "block";
 			delUser.style.display = "none";
-
-			var employeesPrint = '{"employees":[' +
-			'{"firstName":"John","lastName":"Doe" },' +
-			'{"firstName":"Anna","lastName":"Smith" },' +
-			'{"firstName":"Peter","lastName":"Jones" }]}';
-
-			var employees = $.parseJSON( employeesPrint ).employees;
-
-			var $tableEmployees = $( "<table></table>" );
-
-			for ( var i = 0; i < employees.length; i++ ) {
-				var emp = employees[i];
-				var $line = $( "<tr></tr>" );
-				$line.append( $( "<td></td>" ).html( emp.id ) );
-				$line.append( $( "<td></td>" ).html( emp.nombre ) );
-				$line.append( $( "<td></td>" ).html( emp.apellidos ) );
-				$line.append( $( "<td></td>" ).html( emp.identificador ) );
-				$line.append( $( "<td></td>" ).html( emp.dni ) );
-				$line.append( $( "<td></td>" ).html( emp.fecha_alta ) );
-				$line.append( $( "<td></td>" ).html( emp.fecha_baja ) );
-				$tableEmployees.append( $line );
-			}
-
-			$tableEmployees.appendTo( document.body );
-
-			$tableEmployees.appendTo( $( "#showUser" ) );
 		}
 
 		function delUsersFunc() {
 			var addUsers1 = document.getElementById("addUsers");
-			var editUser = document.getElementById("showUser");
+			var showUsers = document.getElementById("showUsers");
 			var delUser = document.getElementById("delUser");
 			addUsers1.style.display = "none";
-			showUser.style.display = "none";
+			showUsers.style.display = "none";
 			delUser.style.display = "block";
 		}
 
-})
-
-    </script>
+	</script>
 </head>
 
 <body>
-<div id="formButtons">
-	<button name="Crear" onclick="addUsersFunc()" title="Crear" type="submit">Create user</button>
-	<button name="Mostrar" onclick="showUsersFunc()" title="Mostrar" type="submit">Show users</button>
-	<button name="Borrar" onclick="delUsersFunc()" title="Borrar" type="submit">Delete user</button>
-</div>
-<div id="addUsers">
-	<form id="loginformAdd" method="POST" th:action="@{/addUser}">
-		<input name="username" placeholder="usuario" required type="text">
-		<input name="password" placeholder="Contraseña" required type="password">
-		<select name="rol" required>
-			<option value="1">admin</option>
-			<option selected value="2">advanced</option>
-			<option value="3">basic</option>
-		</select>
-	</form>
-</div>
-<div id="showUser">
+	<div id="formButtons">
+		<button name="Crear" onclick="addUsersFunc()" title="Crear" type="submit">Create user</button>
+		<button name="Mostrar" onclick="showUsersFunc()" title="Mostrar" type="submit">Show users</button>
+		<button name="Borrar" onclick="delUsersFunc()" title="Borrar" type="submit">Delete user</button>
+	</div>
+	<div id="addUsers">
+		<form id="loginformAdd" method="POST" th:action="@{/addUser}">
+			<input name="username" placeholder="usuario" required type="text">
+			<input name="password" placeholder="Contraseña" required type="password">
+			<select name="rol" required>
+				<option value="1">admin</option>
+				<option selected value="2">advanced</option>
+				<option value="3">basic</option>
+			</select>
+			<button type="submit" title="Crear" name="Crear">Crear usuario</button>
+		</form>
+	</div>
+	<div id="showUsers">
+		 <div class="row align-items-start">
+        <div class="col">
+            <table class="table">
+                <br>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
 
-</div>
-<div id="delUser">
-	<form id="loginformDel" method="DELETE" th:action="@{/usersDelete}">
-		<input name="userId" placeholder="userId" required type="text">
-
-		</select>
-	</form>
-</div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u: ${listaUsers}">
+                    <td th:text="${u.id}"></td>
+                    <td th:text="${u.user}"></td>
+                    <td th:text="${u.role.getRol()}"></td>
+                    <td th:text="${u.enabled == 1 } ? 'ACTIVO' : 'DESHABILITADO'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
+	<div id="delUser">
+		<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
+			<input name="userId" placeholder="userId" required type="text">
+			<button type="submit">Delete</button>
+		</form>
+	</div>
 </body>
 
 </html>
