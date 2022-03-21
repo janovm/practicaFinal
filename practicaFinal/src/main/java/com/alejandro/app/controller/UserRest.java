@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +20,6 @@ import com.alejandro.app.services.UsersService;
 @RequestMapping("user")
 public class UserRest {
 
-	
 	public UserRest(UsersStatesCrudRepository userService) {
 		super();
 		this.userService = userService;
@@ -31,5 +32,11 @@ public class UserRest {
 	public Iterable<User> findAll() {
 		return userService.findAll();
 	}
+	
+	@PostMapping("/addUser")
+	public User addUser(@RequestBody User usuario) {
+		return userService.save(usuario);
+	}
+	
 
 }

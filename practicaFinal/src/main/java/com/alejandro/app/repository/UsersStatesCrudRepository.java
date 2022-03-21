@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.alejandro.app.entity.User;
 
-public interface UsersStatesCrudRepository extends CrudRepository<User, Integer> {
+public interface UsersStatesCrudRepository extends JpaRepository<User, Integer> {
 
 	@Query("from User as u where u.user=:user and u.password=:password")
 	//Solo puede dar un ÚNICO objeto con la misma clave y la misma contraseña

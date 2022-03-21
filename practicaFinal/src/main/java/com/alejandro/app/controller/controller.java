@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alejandro.app.entity.Role;
 import com.alejandro.app.entity.User;
 import com.alejandro.app.repository.UsersStatesCrudRepository;
 
@@ -28,7 +29,6 @@ public class controller {
 	@PostMapping("/login")
 	public ModelAndView recoger(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
 		Iterable<User> usuarios = userService.findAll();
-		System.out.println("USUARIO: "+ username+"      PASS: "+password);
 		for (Iterator iterator = usuarios.iterator(); iterator.hasNext();) {
 			User usuario = (User) iterator.next();
 			if (usuario.getUser().equalsIgnoreCase(username) && usuario.getPassword().equalsIgnoreCase(password)) {
@@ -52,6 +52,20 @@ public class controller {
 		}
 		ModelAndView model = new ModelAndView();
 		model.setViewName("login");
+		return model;
+	}
+	
+	@PostMapping("/addUser")
+	public ModelAndView addUser(@RequestParam(value="username") String username, @RequestParam(value="password") String password, @RequestParam(value="rol") String rol) {
+		User usuario = new User();
+		usuario.setUser(username);
+		usuario.setPassword(password);
+		Role rolUser = new Role();
+		rolUser.setId(Integer.parseInt(rol));
+		usuario.setRole(rolUser);
+		userService.save(usuario);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("admin");
 		return model;
 	}
 }
