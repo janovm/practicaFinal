@@ -1,5 +1,6 @@
 package com.alejandro.app.controller;
 
+import java.sql.Date;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alejandro.app.entity.Employee;
 import com.alejandro.app.entity.Role;
 import com.alejandro.app.entity.User;
+import com.alejandro.app.repository.EmployeesCrudRepository;
 import com.alejandro.app.repository.UsersStatesCrudRepository;
+import com.alejandro.app.services.EmployeeServiceIml;
 import com.alejandro.app.services.Encript;
 
 @Controller
-public class controller {
+public class Controlador {
 	
 	@Autowired
 	private UsersStatesCrudRepository userService;
-	
+	@Autowired
+	private EmployeeServiceIml employeeService;
 	private Encript encriptador;
 	
 	@GetMapping("/home")
@@ -42,18 +47,21 @@ public class controller {
 					ModelAndView model = new ModelAndView();
 					model.setViewName("admin");
 					model.addObject("listaUsers",userService.findAll());
+					model.addObject("listaEmployeers",employeeService.findAll());
 					System.out.println("admin");
 					return model;
 				}else if (usuario.getRole().getId()==2) {
 					ModelAndView model = new ModelAndView();
 					model.setViewName("advance");
 					model.addObject("listaUsers",userService.findAll());
+					model.addObject("listaEmployeers",employeeService.findAll());
 					System.out.println("advance");
 					return model;
 				}else if (usuario.getRole().getId()==3) {
 					ModelAndView model = new ModelAndView();
 					System.out.println("normal");
 					model.addObject("listaUsers",userService.findAll());
+					model.addObject("listaEmployeers",employeeService.findAll());
 					model.setViewName("normal");
 					return model;
 				}
@@ -77,6 +85,23 @@ public class controller {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("admin");
 		model.addObject("listaUsers",userService.findAll());
+		model.addObject("listaEmployeers",employeeService.findAll());
+		return model;
+	}
+	
+	@PostMapping("/addEmployeer")
+	public ModelAndView addEmployee(@RequestParam(value="apellidos") String apellidos, @RequestParam(value="dni") String dni, @RequestParam(value="fecha_alta") Date fecha_alta, @RequestParam(value="fecha_baja") Date fecha_baja,  @RequestParam(value="identificador") String identificador, @RequestParam(value="nombre") String nombre,  @RequestParam(value="jornadas") String jornadasId) {
+		Employee empleado = new Employee();
+		empleado.setApellidos(apellidos);
+		empleado.setDni(dni);
+		empleado.setFecha_alta(fecha_alta);
+		empleado.setFecha_baja(fecha_baja);
+		empleado.setIdentificador(identificador);
+		employeeService.save(empleado);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("admin");
+		model.addObject("listaUsers",userService.findAll());
+		model.addObject("listaEmployeers",employeeService.findAll());
 		return model;
 	}
 	
@@ -88,6 +113,16 @@ public class controller {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("admin");
 		model.addObject("listaUsers",userService.findAll());
+		model.addObject("listaEmployeers",employeeService.findAll());
+		return model;
+	} 
+	
+	@RequestMapping("/checkEmpleados")
+	public ModelAndView checkEmpleados() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("admin");
+		model.addObject("listaUsers",userService.findAll());
+		model.addObject("listaEmployeers",employeeService.findAll());
 		return model;
 	}
 	
@@ -103,6 +138,7 @@ public class controller {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("admin");
 		model.addObject("listaUsers",userService.findAll());
+		model.addObject("listaEmployeers",employeeService.findAll());
 		return model;
 	}
 	

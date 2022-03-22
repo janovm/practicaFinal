@@ -27,50 +27,112 @@
 		#delUser {
 			display: none;
 		}
+
+		#showEmployeers {
+			display: none;
+		}
+
+		#addEmployeers {
+			display: none;
+		}
+
+		#delEmployeers {
+			display: none;
+		}
+
+		
 	</style>
 
 	<script type="text/javascript">
 		function addUsersFunc() {
 			var addUsers1 = document.getElementById("addUsers");
-			var showUser = document.getElementById("showUsers");
+			var addEmployeers = document.getElementById("addEmployeers");
+			var showUsers = document.getElementById("showUsers");
 			var delUser = document.getElementById("delUser");
+			var delEmployeers = document.getElementById("delEmployeers");
+			var showEm = document.getElementById("showEmployeers");
 			addUsers1.style.display = "block";
-			showUser.style.display = "none";
+			addEmployeers.style.display = "none";
+			showUsers.style.display = "none";
+			delEmployeers.style.display = "none";
 			delUser.style.display = "none";
+			showEm.style.display = "none";
+		}
+		function addEmployeersFunc() {
+			var addUsers1 = document.getElementById("addUsers");
+			var addEmployeers = document.getElementById("addEmployeers");
+			var showUsers = document.getElementById("showUsers");
+			var delUser = document.getElementById("delUser");
+			var delEmployeers = document.getElementById("delEmployeers");
+			var showEm = document.getElementById("showEmployeers");
+			addUsers1.style.display = "none";
+			addEmployeers.style.display = "block";
+			showUsers.style.display = "none";
+			delEmployeers.style.display = "none";
+			delUser.style.display = "none";
+			showEm.style.display = "none";
 		}
 		function showUsersFunc() {
 			var addUsers1 = document.getElementById("addUsers");
+			var addEmployeers = document.getElementById("addEmployeers");
 			var showUsers = document.getElementById("showUsers");
 			var delUser = document.getElementById("delUser");
+			var delEmployeers = document.getElementById("delEmployeers");
+			var showEm = document.getElementById("showEmployeers");
 			addUsers1.style.display = "none";
+			addEmployeers.style.display = "none";
 			showUsers.style.display = "block";
+			delEmployeers.style.display = "none";
 			delUser.style.display = "none";
+			showEm.style.display = "none";
 		}
+
 
 		function delUsersFunc() {
 			var addUsers1 = document.getElementById("addUsers");
+			var addEmployeers = document.getElementById("addEmployeers");
 			var showUsers = document.getElementById("showUsers");
 			var delUser = document.getElementById("delUser");
+			var delEmployeers = document.getElementById("delEmployeers");
+			var showEm = document.getElementById("showEmployeers");
 			addUsers1.style.display = "none";
+			addEmployeers.style.display = "none";
 			showUsers.style.display = "none";
+			delEmployeers.style.display = "none";
 			delUser.style.display = "block";
+			showEm.style.display = "none";
+		}
+
+		function showEmployeersFunc() {
+			var addUsers1 = document.getElementById("addUsers");
+			var addEmployeers = document.getElementById("addEmployeers");
+			var showUsers = document.getElementById("showUsers");
+			var delUser = document.getElementById("delUser");
+			var delEmployeers = document.getElementById("delEmployeers");
+			var showEm = document.getElementById("showEmployeers");
+			addUsers1.style.display = "none";
+			addEmployeers.style.display = "none";
+			showUsers.style.display = "none";
+			delEmployeers.style.display = "none";
+			delUser.style.display = "none";
+			showEm.style.display = "block";
 		}
 
 		function dotest(element, event) {
-			const url="http://localhost:8081/modifyUser";
-			const data ={
-				id:element.getElementsByTagName("td")[0].textContent,
+			const url = "http://localhost:8081/modifyUser";
+			const data = {
+				id: element.getElementsByTagName("td")[0].textContent,
 				user: element.getElementsByTagName("td")[1].textContent,
 				rol: element.getElementsByTagName("td")[2].textContent,
 				estado: element.getElementsByTagName("td")[3].textContent
 			}
 			axios({
-				method:"post",
+				method: "post",
 				url: url,
-				data:{
+				data: {
 					data
 				}
-			}).then(data=>console.log(data)).catch(err=>console.log(err))
+			}).then(data => console.log(data)).catch(err => console.log(err))
 		}
 
 	</script>
@@ -79,52 +141,107 @@
 <body>
 	<div id="formButtons">
 		<button name="Crear" onclick="addUsersFunc()" title="Crear" type="submit">Create user</button>
+		<button name="CrearE" onclick="addEmployeersFunc()" title="CrearE" type="submit">Create employeers</button>
 		<button name="Mostrar" onclick="showUsersFunc()" title="Mostrar" type="submit">Show users</button>
+		<button name="MostrarE" onclick="showEmployeersFunc()" title="MostrarE" type="submit">Show employers</button>
 		<button name="Borrar" onclick="delUsersFunc()" title="Borrar" type="submit">Delete user</button>
-	</div>
-	<div id="addUsers">
-		<form id="loginformAdd" method="POST" th:action="@{/addUser}">
-			<input name="username" placeholder="usuario" required type="text">
-			<input name="password" placeholder="Contraseña" required type="password">
-			<select name="rol" required>
-				<option value="1">admin</option>
-				<option selected value="2">advanced</option>
-				<option value="3">basic</option>
-			</select>
-			<button type="submit" title="Crear" name="Crear">Crear usuario</button>
+		<button name="BorrarE" onclick="delEmployeersFunc()" title="Borrar" type="submit">Delete Employeer</button>
+		<form id="loginformAdd" method="POST" th:action="@{/checkEmpleados}">
+			<button type="submit" title="Crear" name="Crear">Verificar empleados</button>
 		</form>
 	</div>
-	<div id="showUsers">
-		<div class="row align-items-start">
-			<div class="col">
-				<table class="table">
-					<br>
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Username</th>
-							<th>Rol</th>
-							<th>Estado</th>
+	<div id="contenedor">
+		<div id="addUsers">
+			<form id="loginformAdd" method="POST" th:action="@{/addUser}">
+				<input name="username" placeholder="usuario" required type="text">
+				<input name="password" placeholder="Contraseña" required type="password">
+				<select name="rol" required>
+					<option value="1">admin</option>
+					<option selected value="2">advanced</option>
+					<option value="3">basic</option>
+				</select>
+				<button type="submit" title="Crear" name="Crear">Crear usuario</button>
+			</form>
+		</div>
+		<div id="addEmployeers">
+			<form id="loginformAdd" method="POST" th:action="@{/addEmployeer}">
+				<input name="nombre" placeholder="usuario" required type="text">
+				<input name="apellidos" placeholder="usuario" required type="text">
+				<input name="dni" placeholder="dni" required type="text">
+				<input name="fecha_alta" placeholder="fecha_alta" required type="date">
+				<input name="fecha_alta" placeholder="fecha_alta" required type="date">
+				<input name="jornadas_id" placeholder="jornadas_id" required type="text">
+				<button type="submit" title="Crear" name="Crear">Crear usuario</button>
+			</form>
+		</div>
+		<div id="showUsers">
+			<div class="row align-items-start">
+				<div class="col">
+					<table class="table">
+						<br>
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Username</th>
+								<th>Rol</th>
+								<th>Estado</th>
 
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="u: ${listaUsers}" onkeyup="javascript:dotest(this,event);">
-							<td th:text="${u.id}"></td>
-							<td th:text="${u.user}" contenteditable='true'></td>
-							<td th:text="${u.role.getRol()}" contenteditable='true'></td>
-							<td th:text="${u.enabled == 1 } ? 'ACTIVO' : 'DESHABILITADO'" contenteditable='true'></td>
-						</tr>
-					</tbody>
-				</table>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="u: ${listaUsers}" onkeyup="javascript:dotest(this,event);">
+								<td th:text="${u.id}"></td>
+								<td th:text="${u.user}" contenteditable='true'></td>
+								<td th:text="${u.role.getRol()}" contenteditable='true'></td>
+								<td th:text="${u.enabled == 1 } ? 'ACTIVO' : 'DESHABILITADO'" contenteditable='true'>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="delUser">
-		<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
-			<input name="userId" placeholder="userId" required type="text">
-			<button type="submit">Delete</button>
-		</form>
+		<div id="showEmployeers">
+			<div class="row align-items-start">
+				<div class="col">
+					<table class="table">
+						<br>
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Surnames</th>
+								<th>Dni</th>
+								<th>Fecha Alta</th>
+								<th>Fecha Baja</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="u: ${listaEmployeers}" onkeyup="javascript:dotest(this,event);">
+								<td th:text="${u.id}"></td>
+								<td th:text="${u.nombre}" contenteditable='true'></td>
+								<td th:text="${u.apellidos}" contenteditable='true'></td>
+								<td th:text="${u.dni}" contenteditable='true'></td>
+								<td th:text="${u.fecha_alta }" contenteditable='true'></td>
+								<td th:text="${u.fecha_baja }" contenteditable='true'></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="delUser">
+			<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
+				<input name="userId" placeholder="userId" required type="text">
+				<button type="submit">Delete</button>
+			</form>
+		</div>
+		<div id="delEmployeers">
+			<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
+				<input name="userId" placeholder="userId" required type="text">
+				<button type="submit">Delete</button>
+			</form>
+		</div>
 	</div>
 </body>
 
