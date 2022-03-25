@@ -56,10 +56,10 @@
 			left: 11%;
 
 		}
-		
-		body{
-			background-color:#0f4c75;
-			padding-top:5%;
+
+		body {
+			background-color: #0f4c75;
+			padding-top: 5%;
 		}
 
 		#contenedor {
@@ -67,22 +67,22 @@
 			width: 80%;
 			margin: auto;
 		}
-		#contenedorFuncionalidades{
+
+		#contenedorFuncionalidades {
 			width: 80%;
-			position:absolute;
-			top:30%;
+			position: absolute;
+			top: 30%;
 		}
-		
-		#addUsers{
-			margin-left:-30%;
-			margin-top:20%;
+
+		#addUsers {
+			margin-left: 30%;
+			margin-top: 20%;
 		}
-		
-		#addEmployeers{
-			margin-left:-30%;
-			margin-top:20%;
+
+		#addEmployeers {
+			margin-left: 30%;
+			margin-top: 30%;
 		}
-		
 	</style>
 
 	<script type="text/javascript">
@@ -205,6 +205,35 @@
 			aniadir.innerHTML = "";
 		}
 
+		function ejercicioJavascript() {
+
+			let valores = [true, 5, false, "hola", "adios", 2];
+
+			if (valores[3].length > valores[4].length) {
+				console.log("el primero es mas largo que el segundo");
+			} else if (valores[3].length < valores[4].length) {
+				console.log("el segundo es mas largo que el primero");
+			}
+
+			let bool1 = valores[0];
+			let bool2 = valores[2];
+			//para resultado true 
+			if (bool1 || bool2) {
+				console.log("esto es true ");
+			}
+
+			if (bool1 && bool2) {
+				console.log("no entra aqui por que es false");
+			}
+
+			let num1 = valores[1];
+			let num2 = valores[5];
+			let suma = num1 + num2;
+			let resta = num1 - num2;
+			let multiplicacion = num1 * num2;
+
+		}
+		ejercicioJavascript();
 		function dotest(element, event) {
 			const url = "http://localhost:8081/modifyUser";
 			const data = {
@@ -248,11 +277,11 @@
 
 
 		<div id="contenedorFuncionalidades">
-			<div id="addUsers" >
+			<div id="addUsers">
 				<form id="loginformAdd" method="POST" th:action="@{/addUser}">
 					<input name="username" class="form-control" placeholder="usuario" required type="text">
 					<input name="password" class="form-control" placeholder="Contraseña" required type="password">
-					<select name="rol" required>
+					<select name="rol" required class="form-control">
 						<option value="1">admin</option>
 						<option selected value="2">advanced</option>
 						<option value="3">basic</option>
@@ -266,9 +295,10 @@
 					<input name="nombre" class="form-control" placeholder="usuario" required type="text">
 					<input name="apellidos" class="form-control" placeholder="usuario" required type="text">
 					<input name="dni" class="form-control" placeholder="dni" required type="text">
-					<input name="fecha_alta" placeholder="fecha_alta" required type="date">
-					<input name="fecha_alta" placeholder="fecha_alta" required type="date">
-					<input name="jornadas_id" placeholder="jornadas_id" required type="text"><br><br>
+					<input name="fecha_alta" class="form-control" placeholder="fecha_alta" required type="date">
+					<input name="fecha_alta" class="form-control" placeholder="fecha_alta" required type="date">
+					<input name="jornadas_id" class="form-control" placeholder="jornadas_id" required
+						type="text"><br><br>
 					<button type="submit" title="Crear" name="Crear" class="btn btn-outline-primary">Crear
 						usuario</button>
 				</form>
@@ -276,7 +306,7 @@
 			<div id="showUsers">
 				<div class="row align-items-start">
 					<div class="col">
-						<table class="table">
+						<table class="table table-dark table-hover">
 							<br>
 							<thead>
 								<tr>
@@ -304,7 +334,7 @@
 			<div id="showEmployeers">
 				<div class="row align-items-start">
 					<div class="col">
-						<table class="table">
+						<table class="table table-dark table-hover">
 							<br>
 							<thead>
 								<tr>
@@ -332,13 +362,13 @@
 			</div>
 			<div id="delUser">
 				<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
-					<input name="userId" placeholder="userId" required type="text">
+					<input name="userId" placeholder="userId" required type="text" class="form-control">
 					<button type="submit" class="btn btn-outline-primary">Delete</button>
 				</form>
 			</div>
 			<div id="delEmployeers">
 				<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
-					<input name="userId" placeholder="userId" required type="text">
+					<input name="userId" placeholder="userId" required type="text" class="form-control">
 					<button type="submit" class="btn btn-outline-primary">Delete</button>
 				</form>
 			</div>
@@ -349,6 +379,8 @@
 			<button class="btn btn-primary" type="submit" title="Crear" name="Crear">Verificar empleados</button>
 		</form>
 	</div>
+
+
 </body>
 
 </html>
