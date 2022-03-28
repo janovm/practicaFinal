@@ -2,7 +2,7 @@
 <!doctype html>
 
 <!-- Representa la raíz de un documento HTML o XHTML. Todos los demás elementos deben ser descendientes de este elemento. -->
-<html lang="es" xmlns:th="http://thymeleaf.org">
+<html lang="es" xmlns:th="http://thymeleaf.org" onmousemove="position(event);">
 
 <head>
 
@@ -91,12 +91,27 @@
 			margin-left: 30%;
 			margin-top: 30%;
 		}
+
+		#assignedRol {
+			position: absolute;
+			top: 1%;
+			left: 11%;
+			color: white;
+		}
+
+		#mousePositions {
+			border: solid white 1px;
+			color: white;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 11px;
+			height: 300px;
+			overflow: auto;
+			width: 150px;
+			height: auto;
+		}
 		
-		#assignedRol{
-			position:absolute;
-			top:1%;
-			left:11%;
-			color:white;
+		#control{
+			color: white;
 		}
 	</style>
 
@@ -122,7 +137,7 @@
 				setTimeout(function () {alert("Aqui estamos !!");}, 3000);
 			});
 		}
-		
+
 		function addUsersFunc() {
 			let addUsers1 = document.getElementById("addUsers");
 			let addEmployeers = document.getElementById("addEmployeers");
@@ -131,12 +146,14 @@
 			let delEmployeers = document.getElementById("delEmployeers");
 			let showEm = document.getElementById("showEmployeers");
 			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
 			addUsers1.style.display = "block";
 			addEmployeers.style.display = "none";
 			showUsers.style.display = "none";
 			delEmployeers.style.display = "none";
 			delUser.style.display = "none";
 			showEm.style.display = "none";
+			ejercicioJS.style.display = "none";
 			aniadir.innerHTML = "";
 		}
 
@@ -167,12 +184,14 @@
 			let delEmployeers = document.getElementById("delEmployeers");
 			let showEm = document.getElementById("showEmployeers");
 			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
 			addUsers1.style.display = "none";
 			addEmployeers.style.display = "block";
 			showUsers.style.display = "none";
 			delEmployeers.style.display = "none";
 			delUser.style.display = "none";
 			showEm.style.display = "none";
+			ejercicioJS.style.display = "none";
 			aniadir.innerHTML = "";
 		}
 		function aniadirPalabra() {
@@ -183,12 +202,14 @@
 			let delEmployeers = document.getElementById("delEmployeers");
 			let showEm = document.getElementById("showEmployeers");
 			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
 			addUsers1.style.display = "none";
 			addEmployeers.style.display = "none";
 			showUsers.style.display = "none";
 			delEmployeers.style.display = "none";
 			delUser.style.display = "none";
 			showEm.style.display = "none";
+			ejercicioJS.style.display = "none";
 			aniadir.innerHTML = "PRUEBA";
 		}
 		function showUsersFunc() {
@@ -199,6 +220,8 @@
 			let delEmployeers = document.getElementById("delEmployeers");
 			let showEm = document.getElementById("showEmployeers");
 			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
+			ejercicioJS.style.display = "none";
 			addUsers1.style.display = "none";
 			addEmployeers.style.display = "none";
 			showUsers.style.display = "block";
@@ -217,6 +240,8 @@
 			let delEmployeers = document.getElementById("delEmployeers");
 			let showEm = document.getElementById("showEmployeers");
 			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
+			ejercicioJS.style.display = "none";
 			addUsers1.style.display = "none";
 			addEmployeers.style.display = "none";
 			showUsers.style.display = "none";
@@ -235,11 +260,13 @@
 			let delEmployeers = document.getElementById("delEmployeers");
 			let showEm = document.getElementById("showEmployeers");
 			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
+			ejercicioJS.style.display = "none";
 			addUsers1.style.display = "none";
 			addEmployeers.style.display = "none";
 			showUsers.style.display = "none";
-			delEmployeers.style.display = "none";
-			delUser.style.display = "block";
+			delEmployeers.style.display = "block";
+			delUser.style.display = "none";
 			showEm.style.display = "none";
 			aniadir.innerHTML = "";
 		}
@@ -261,6 +288,8 @@
 			let delEmployeers = document.getElementById("delEmployeers");
 			let showEm = document.getElementById("showEmployeers");
 			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
+			ejercicioJS.style.display = "none";
 			addUsers1.style.display = "none";
 			addEmployeers.style.display = "none";
 			showUsers.style.display = "none";
@@ -268,6 +297,54 @@
 			delUser.style.display = "none";
 			showEm.style.display = "block";
 			aniadir.innerHTML = "";
+		}
+
+		function ejecutar() {
+			let container = document.getElementById("contenedor");
+			const body = document.body,
+				tbl = document.createElement('table');
+			tbl.style.width = '100%';
+			tbl.style.border = '1px solid white';
+			tbl.style.color = "white";
+			tbl.style.marginTop = "10%";
+			tbl.className += "table table-dark table-hover";
+
+			for (let i = 0; i < 3; i++) {
+				const tr = tbl.insertRow();
+				for (let j = 0; j < 2; j++) {
+					if (i === 2 && j === 1) {
+						break;
+					} else {
+						const td = tr.insertCell();
+						td.appendChild(document.createTextNode(`Fila I${i}/J${j}`));
+						td.style.border = '1px solid black';
+						if (i === 1 && j === 1) {
+							td.setAttribute('rowSpan', '2');
+						}
+					}
+				}
+			}
+			container.appendChild(tbl);
+			let btn = document.createElement("button");
+			btn.innerHTML = "Eliminar";
+			btn.className += "btn btn-primary";
+			btn.onclick = function () {
+				container.removeChild(tbl);
+				container.removeChild(btn);
+			};
+			container.appendChild(btn);
+		}
+
+		function resalta(elEvento) {
+			var evento = elEvento || window.event;
+			switch (evento.type) {
+				case 'mouseover':
+					this.style.borderColor = 'grey';
+					break;
+			}
+		}
+		window.onload = function () {
+			document.getElementById("formButtons").onmouseover = resalta;
 		}
 
 		function ejercicioJavascript() {
@@ -305,6 +382,16 @@
 
 		}
 
+
+		function multiplicar(tabla) {
+			var cadena = "";
+			var i;
+			for (i = 1; i <= 10; i++) {
+				cadena = cadena + i + " x " + tabla + " = " + (tabla * i) + "; ";
+			}
+			return cadena;
+		}
+
 		function dotest(element, event) {
 			const url = "http://localhost:8081/modifyUser";
 			const data = {
@@ -322,6 +409,47 @@
 			}).then(data => console.log(data)).catch(err => console.log(err))
 		}
 
+		function resalta(elemento) {
+			switch (elemento.style.borderColor) {
+				case 'silver':
+				case 'silver silver silver silver':
+				case '#c0c0c0':
+					elemento.style.borderColor = 'black';
+					break;
+				case 'black':
+				case 'black black black black':
+				case '#000000':
+					elemento.style.borderColor = 'silver';
+					break;
+			}
+		}
+		function position(event) {
+			var x = event.clientX;
+			var y = event.clientY;
+			var mousePositions = document.getElementById('mousePositions');
+			mousePositions.innerHTML = 'X coords: ' + x + ', Y coords: ' + y;
+			if(y<=screen.height/2){
+				if(x<= screen.width/2){
+					mousePositions.innerHTML ="arriba izquierda";
+				}else{
+					mousePositions.innerHTML ="arriba derecha";
+				}
+			}else{
+				if(x<= screen.width/2){
+					mousePositions.innerHTML ="abajo izquierda";
+				}else{
+					mousePositions.innerHTML ="abajo derecha";
+				}
+			}
+		}
+		document.addEventListener('keydown', function (e) {
+			//Dependiendo del navegador usara el which o el keycode OJO ES IMPORTANTE
+			var keycodeentero = event.which || event.keyCode;
+			//Buscamos el objeto tecla
+			var objeto = document.getElementById('control');
+			// Y con el String obtenemos la tecla presionada.
+			objeto.textContent = 'La tecla presionada es: ' + String.fromCharCode(keycodeentero);
+		})
 	</script>
 </head>
 
@@ -348,10 +476,9 @@
 			<button class="btn btn-primary" name="BorrarE" onclick="delEmployeersFunc()" title="Borrar"
 				type="submit">Delete
 				Employeer</button>
-			<button class="btn btn-primary" name="EjercicioJs" onclick="ejercicioClick()" title="EjercicioJs"
+			<button class="btn btn-primary" name="EjercicioJs" onclick="ejecutar()" title="EjercicioJs"
 				type="submit">Ejercicio Js</button>
 		</div>
-
 		<div id="contenedorFuncionalidades">
 			<div id="addUsers">
 				<form id="loginformAdd" method="POST" th:action="@{/addUser}">
@@ -390,7 +517,6 @@
 									<th>Username</th>
 									<th>Rol</th>
 									<th>Estado</th>
-
 								</tr>
 							</thead>
 							<tbody>
@@ -444,42 +570,13 @@
 			</div>
 			<div id="delEmployeers">
 				<form id="loginformDel" method="DELETE" th:action="@{/deleteUser}">
-					<input name="userId" placeholder="userId" required type="text" class="form-control">
+					<input name="employeerId" placeholder="employeerId" required type="text" class="form-control">
 					<button type="submit" class="btn btn-outline-primary">Delete</button>
 				</form>
 			</div>
-			<div id="practicandoJS">
-				<select name="frutas" id="frutas" required class="form-control">
-					<option value="Fruta 1">Fruta 1</option>
-					<option value="Fruta 2">Fruta 2</option>
-					<option value="Fruta 3">Fruta 3</option>
-					<option value="Fruta 3">Fruta 4</option>
-					<option value="Fruta 3">Fruta 5</option>
-				</select>
-				<select name="pescados" id="pescados" required class="form-control">
-					<option value="Pescado 1">Pescado 1</option>
-					<option value="Pescado 2">Pescado 2</option>
-					<option value="Pescado 3">Pescado 3</option>
-					<option value="Pescado 3">Pescado 4</option>
-					<option value="Pescado 3">Pescado 5</option>
-				</select>
-				<select name="carnes" id="carnes" required class="form-control">
-					<option value="Carne 1">Carne 1</option>
-					<option value="Carne 2">Carne 2</option>
-					<option value="Carne 3">Carne 3</option>
-					<option value="Carne 4">Carne 4</option>
-					<option value="Carne 5">Carne 5</option>
-				</select>
-				<select name="drogueria" id="drogueria" required class="form-control">
-					<option value="Drogueria 1">Drogueria 1</option>
-					<option value="Drogueria 2">Drogueria 2</option>
-					<option value="Drogueria 3">Drogueria 3</option>
-					<option value="Drogueria 4">Drogueria 4</option>
-					<option value="Drogueria 5">Drogueria 5</option>
-				</select>
-				<button class="btn btn-primary" name="EjercicioJs2" onclick="clickEjercicio()" title="EjercicioJs2"
-					type="submit">Recoger</button>
-			</div>
+			<div id="mousePositions"></div>
+			<div id="practicandoJS"></div>
+			<div id="control"> </div>
 
 		</div>
 	</div>
