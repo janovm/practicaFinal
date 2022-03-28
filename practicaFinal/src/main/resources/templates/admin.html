@@ -57,6 +57,10 @@
 
 		}
 
+		#practicandoJS {
+			display: none;
+		}
+
 		body {
 			background-color: #0f4c75;
 			padding-top: 5%;
@@ -86,6 +90,31 @@
 	</style>
 
 	<script type="text/javascript">
+		class Car {
+			constructor(name, year) {
+				this.name = name;
+				this.year = year;
+			}
+		}
+
+		//Math.trunc(3.2);
+		//Math.sign(2);
+		//Math.cbrt(3);
+		//Math.log2(40);
+		//Math.log10(10);  
+
+
+		//Number.isInteger(3.5);
+
+		async function miDisplay() {
+			let miPromise = new Promise(function (miResolve, miReject) {
+				setTimeout(function () {alert("Aqui estamos !!");}, 3000);
+			});
+		}
+
+		miDisplay();
+
+
 		function addUsersFunc() {
 			let addUsers1 = document.getElementById("addUsers");
 			let addEmployeers = document.getElementById("addEmployeers");
@@ -100,6 +129,24 @@
 			delEmployeers.style.display = "none";
 			delUser.style.display = "none";
 			showEm.style.display = "none";
+			aniadir.innerHTML = "";
+		}
+		function ejercicioClick() {
+			let addUsers1 = document.getElementById("addUsers");
+			let addEmployeers = document.getElementById("addEmployeers");
+			let showUsers = document.getElementById("showUsers");
+			let delUser = document.getElementById("delUser");
+			let delEmployeers = document.getElementById("delEmployeers");
+			let showEm = document.getElementById("showEmployeers");
+			let aniadir = document.getElementById("contenedorPalabra");
+			let ejercicioJS = document.getElementById("practicandoJS");
+			addUsers1.style.display = "none";
+			addEmployeers.style.display = "none";
+			showUsers.style.display = "none";
+			delEmployeers.style.display = "none";
+			delUser.style.display = "none";
+			showEm.style.display = "none";
+			ejercicioJS.style.display = "block";
 			aniadir.innerHTML = "";
 		}
 		function addEmployeersFunc() {
@@ -187,7 +234,23 @@
 			aniadir.innerHTML = "";
 		}
 
+		function clickEjercicio() {
+			var select = document.getElementById('frutas').value;
+			var select1 = document.getElementById('pescados').value;
+			var select2 = document.getElementById('carnes').value;
+			var select3 = document.getElementById('drogueria').value;
 
+			alert(select + ", " + select1 + ", " + select2 + ", " + select3);
+		}
+
+		function checkParImpar(numero) {
+			if (numero % 2 == 0) {
+				alert("Numero par");
+			} else {
+				alert("Numero impar");
+			}
+
+		}
 		function showEmployeersFunc() {
 			let addUsers1 = document.getElementById("addUsers");
 			let addEmployeers = document.getElementById("addEmployeers");
@@ -232,6 +295,12 @@
 			let resta = num1 - num2;
 			let multiplicacion = num1 * num2;
 
+			var dias =
+				["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+			for (i in dias) {
+				alert(dias[i]);
+			}
+
 		}
 		ejercicioJavascript();
 		function dotest(element, event) {
@@ -273,8 +342,9 @@
 			<button class="btn btn-primary" name="BorrarE" onclick="delEmployeersFunc()" title="Borrar"
 				type="submit">Delete
 				Employeer</button>
+			<button class="btn btn-primary" name="EjercicioJs" onclick="ejercicioClick()" title="EjercicioJs"
+				type="submit">Ejercicio Js</button>
 		</div>
-
 
 		<div id="contenedorFuncionalidades">
 			<div id="addUsers">
@@ -372,6 +442,39 @@
 					<button type="submit" class="btn btn-outline-primary">Delete</button>
 				</form>
 			</div>
+			<div id="practicandoJS">
+				<select name="frutas" id="frutas" required class="form-control">
+					<option value="Fruta 1">Fruta 1</option>
+					<option value="Fruta 2">Fruta 2</option>
+					<option value="Fruta 3">Fruta 3</option>
+					<option value="Fruta 3">Fruta 4</option>
+					<option value="Fruta 3">Fruta 5</option>
+				</select>
+				<select name="pescados" id="pescados" required class="form-control">
+					<option value="Pescado 1">Pescado 1</option>
+					<option value="Pescado 2">Pescado 2</option>
+					<option value="Pescado 3">Pescado 3</option>
+					<option value="Pescado 3">Pescado 4</option>
+					<option value="Pescado 3">Pescado 5</option>
+				</select>
+				<select name="carnes" id="carnes" required class="form-control">
+					<option value="Carne 1">Carne 1</option>
+					<option value="Carne 2">Carne 2</option>
+					<option value="Carne 3">Carne 3</option>
+					<option value="Carne 4">Carne 4</option>
+					<option value="Carne 5">Carne 5</option>
+				</select>
+				<select name="drogueria" id="drogueria" required class="form-control">
+					<option value="Drogueria 1">Drogueria 1</option>
+					<option value="Drogueria 2">Drogueria 2</option>
+					<option value="Drogueria 3">Drogueria 3</option>
+					<option value="Drogueria 4">Drogueria 4</option>
+					<option value="Drogueria 5">Drogueria 5</option>
+				</select>
+				<button class="btn btn-primary" name="EjercicioJs2" onclick="clickEjercicio()" title="EjercicioJs2"
+					type="submit">Recoger</button>
+			</div>
+
 		</div>
 	</div>
 	<div id="loginformAdd">
